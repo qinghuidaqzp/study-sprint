@@ -21,41 +21,57 @@ Android project:
 Important behavior:
 
 - `CAPACITOR_SERVER_URL` controls which deployed URL the APK loads.
-- Default placeholder: `https://your-app-domain.vercel.app`
+- Default URL in the repo is now `https://study-sprint-1lbk.vercel.app`.
+- You can override that URL in GitHub Actions or local builds.
 
-## Before building APK
+## GitHub Actions APK build
 
-You need a live public frontend URL, for example:
+This repo now includes an Android APK workflow:
 
-```text
-https://your-app-domain.vercel.app
-```
+- `.github/workflows/build-android-apk.yml`
 
-Then run in `frontend`:
+What it does:
+
+- installs Node.js and Java on the GitHub runner
+- installs Android SDK packages for API 36
+- runs `npx cap sync android`
+- builds `app-debug.apk`
+- uploads the APK as a GitHub Actions artifact
+
+How to use it on GitHub:
+
+1. Open the repository `Actions` tab.
+2. Choose `Build Android APK`.
+3. Click `Run workflow`.
+4. Optional: enter a different `server_url` if the APK should load another frontend domain.
+5. Wait for the run to finish.
+6. Download the artifact named `study-sprint-debug-apk`.
+
+Optional repository variable:
+
+- Name: `CAPACITOR_SERVER_URL`
+- Example: `https://study-sprint-1lbk.vercel.app`
+
+If you do not set that variable, the workflow falls back to the current deployed frontend URL.
+
+## Local build option
+
+You can still build locally if your machine has Android Studio or command line SDK tools installed.
+
+Run in `frontend`:
 
 ```powershell
-$env:CAPACITOR_SERVER_URL="https://your-app-domain.vercel.app"
-npm run cap:add:android
+$env:CAPACITOR_SERVER_URL="https://study-sprint-1lbk.vercel.app"
 npm run cap:sync
 ```
 
-## To build the APK
-
-You need Android Studio or Android command line SDK installed.
-
-Then either:
-
-1. Open Android Studio:
+Then either open Android Studio:
 
 ```powershell
 npm run android:open
 ```
 
-Build menu:
-
-- `Build` -> `Build Bundle(s) / APK(s)` -> `Build APK(s)`
-
-2. Or use Gradle in the generated Android project:
+Or use Gradle directly:
 
 ```powershell
 cd android
@@ -74,20 +90,16 @@ frontend/android/app/build/outputs/apk/debug/app-debug.apk
 - Capacitor packages installed successfully.
 - `frontend/android` was generated successfully.
 - `npm run cap:sync` completed successfully.
-- Gradle reached the Android dependency resolution stage.
+- The Android shell now points to the deployed frontend by default.
 
-## Current local blocker
+## Known limitation
 
-On this machine, APK compilation is currently blocked by Gradle failing to download Android and Maven artifacts over TLS/network.
+On this machine, local APK compilation previously failed during Gradle dependency download because of network/TLS issues.
 
-That means:
-
-- the mobile wrapper setup is already in place
-- the remaining problem is environment/network related, not application code related
+That is why GitHub Actions is the preferred build path now.
 
 ## Notes
 
-- The APK will only work correctly when `CAPACITOR_SERVER_URL` points to a reachable public site.
-- For phone testing, deploying the frontend first is required.
-- If you later switch domains, update `CAPACITOR_SERVER_URL` and run `npm run cap:sync` again.
+- The generated artifact is a debug APK, which is the fastest installable format for MVP testing.
+- If you later change the frontend domain, update `CAPACITOR_SERVER_URL` and rerun the workflow.
 - This wrapper approach is the fastest way to get an installable Android package without rewriting the app in React Native or Flutter.

@@ -1,6 +1,6 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
-const serverUrl = process.env.CAPACITOR_SERVER_URL || 'https://study-sprint-1lbk-gcy7tsequ-qinghuida100s-projects.vercel.app';
+const serverUrl = process.env.CAPACITOR_SERVER_URL || 'https://study-sprint-1lbk.vercel.app';
 
 const config: CapacitorConfig = {
   appId: 'com.dasan.studysprint',
