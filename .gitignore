@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.pytest_cache/
+*.log
+
+# Local env files
+.env
+backend/.env
+frontend/.env.local
+
+# FastAPI storage/runtime
+backend/storage/uploads/*
+backend/storage/exports/*
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+backend/*.sqlite-journal
+backend/*.sqlite-shm
+backend/*.sqlite-wal
+!backend/storage/uploads/.gitkeep
+!backend/storage/exports/.gitkeep
+
+# Local run artifacts
+.runlogs/
+
+# Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.vercel/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

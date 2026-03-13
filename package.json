@@ -1,0 +1,11 @@
+{
+  "name": "study-sprint-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "start:frontend": "npm --prefix frontend run start",
+    "lint:frontend": "npm --prefix frontend run lint"
+  }
+}
