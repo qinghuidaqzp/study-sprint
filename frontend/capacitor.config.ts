@@ -6,7 +6,6 @@ const config: CapacitorConfig = {
   appId: 'com.dasan.studysprint',
   appName: 'Study Sprint',
   webDir: 'capacitor-shell',
-  bundledWebRuntime: false,
   server: {
     url: serverUrl,
     cleartext: serverUrl.startsWith('http://'),

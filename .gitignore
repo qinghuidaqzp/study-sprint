@@ -38,3 +38,6 @@ frontend/.vercel/
 Thumbs.db
 .vscode/
 .idea/
+
+# Browser automation artifacts
+.playwright-cli/
