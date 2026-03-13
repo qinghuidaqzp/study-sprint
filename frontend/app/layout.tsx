@@ -1,7 +1,9 @@
-﻿import "./globals.css";
+import "./globals.css";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+
+import { historyEnabled } from "@/lib/features";
 
 export const metadata: Metadata = {
   title: "学习资料整理与复习生成器",
@@ -19,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </Link>
             <nav className="nav-links">
               <Link href="/">上传页</Link>
-              <Link href="/history">历史记录</Link>
+              {historyEnabled ? <Link href="/history">历史记录</Link> : null}
             </nav>
           </header>
           <main className="page-wrap">{children}</main>

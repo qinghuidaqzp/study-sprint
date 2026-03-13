@@ -1,6 +1,7 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import { UploadForm } from "@/components/upload-form";
+import { historyEnabled } from "@/lib/features";
 
 export default function HomePage() {
   return (
@@ -22,9 +23,11 @@ export default function HomePage() {
             <strong>支持多格式</strong>
             <span>音频、PPTX、PDF、TXT、Markdown</span>
           </div>
-          <Link href="/history" className="ghost-link">
-            查看历史任务
-          </Link>
+          {historyEnabled ? (
+            <Link href="/history" className="ghost-link">
+              查看历史任务
+            </Link>
+          ) : null}
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 from typing import Iterable
@@ -8,6 +8,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
+from app.core.config import settings
 from app.db.session import get_db
 from app.models.task import SourceFile, StudyTask
 from app.schemas.task import ContentSegmentRead, StudyTaskCreateResponse, StudyTaskDetail, StudyTaskSummary
@@ -160,6 +161,9 @@ def retry_process_task(
 
 @router.get("/tasks", response_model=list[StudyTaskSummary])
 def list_tasks(db: Session = Depends(get_db)) -> list[StudyTaskSummary]:
+    if not settings.history_enabled:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="History is disabled.")
+
     query = (
         select(StudyTask)
         .options(

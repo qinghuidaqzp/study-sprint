@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     export_dir_name: str = "exports"
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
     max_upload_size_mb: int = 200
+    history_enabled: bool = False
 
     ai_provider: str = "mock"
     ai_base_url: str = "https://api.openai.com/v1"

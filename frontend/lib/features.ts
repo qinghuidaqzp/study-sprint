@@ -1,0 +1,1 @@
+export const historyEnabled = (process.env.NEXT_PUBLIC_ENABLE_HISTORY ?? "false").toLowerCase() === "true";
